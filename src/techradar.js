@@ -31,14 +31,37 @@ class TechRadar extends Component {
 
 	shouldComponentUpdate(nextProps, nextState){
 	    console.log('shouldComponentUpdate');
-	    return this.props !== nextProps || this.state !== nextState;;
+	    return this.props !== nextProps || this.state !== nextState;
 	 }
 
 	componentWillUpdate(nextProps, nextState){
     	console.log('componentWillUpdate');	
   	}
 
-	cerclePleinSVG(){
+	renderConcentrikCircle(){
+
+		console.log('buildConcentrikCircle -- this.state : ', this.props.props);
+
+		if ( Object.keys(this.props.props).length !== 0 ){
+			this.counterCircle = Object.keys(this.props.props).length;
+
+			var factor, d;
+			var concentrikCircles = [];
+			var keys = Object.keys(this.props.props);
+
+			while( this.counterCircle > 0 ){
+				factor = this.counterCircle * 100;
+				d = "M0 0 L " +factor+ " 0, C " +factor+ " 0 " +factor+ " " +factor+ " 0 " +factor+ " Z";
+				concentrikCircles.push(<ConcentrikCircle key={this.counterCircle} d={d} rayon={factor} fill={this.concentrikCircleColors[this.counterCircle-1]} pointers={this.props.props[keys[this.counterCircle-1]]} />);
+				this.counterCircle--;	
+			}
+		}
+
+		return concentrikCircles;
+
+	}
+
+	cerclePleinSVG(){  // useless
 		/******************************************************************************/
 		// SOLUTION SVG
 		/******************************************************************************/
@@ -104,63 +127,7 @@ class TechRadar extends Component {
 		techRadarSvg.appendChild(concentrikCircle4);*/
 	} 
 
-
-	renderConcentrikCircle(){
-
-		console.log('buildConcentrikCircle -- this.state : ', this.props.props);
-
-		if ( Object.keys(this.props.props).length !== 0 ){
-			this.counterCircle = Object.keys(this.props.props).length;
-
-			var factor, d;
-			var concentrikCircles = [];
-
-			// <path d="M0 0 L 200 0, C 200 0 200 200 0 200 Z" fill="red" />
-			// <path d="M0 0 L 100 0, C 100 0 100 100 0 100 Z" fill="grey" />
-
-			while( this.counterCircle > 0 ){
-				factor = this.counterCircle * 100;
-				console.log('factor : ', factor);
-				d = "M0 0 L " +factor+ " 0, C " +factor+ " 0 " +factor+ " " +factor+ " 0 " +factor+ " Z";
-				// return <path d={d} fill={this.concentrikCircleColors[this.counterCircle]} />;
-				concentrikCircles.push(<ConcentrikCircle d={d} fill={this.concentrikCircleColors[this.counterCircle-1]} />);
-				this.counterCircle--;			
-			}
-		}
-
-		return concentrikCircles;
-		
-
-		// while( this.counterCircle > 0 ){
-		// 	factor = this.counterCircle * 100;
-		// 	this.renderCircleHTML += '<path d="M0 0 L '+ factor +' 0, C '+ factor +' 0 '+ factor +' '+ factor +' 0 '+ factor +' Z fill="'+ this.concentrikCircleColors[this.counterCircle] +'" />'
-		// 	this.counterCircle--;			
-		// }
-		
-		
-
-		// this.forceUpdate();
-
-		// for ( var techno in this.state){
-
-		// 	let pointer = this.state[techno];
-
-		// 	console.log('pointer : ', pointer);
-
-		// 	for (var i in pointer){
-				
-		// 	}
-		// }
-
-
-		// var newpath = document.createElementNS('http://www.w3.org/2000/svg',"path");  
-		// newpath.setAttributeNS(null, "d", "M10 10");
-		// document.getElementById("techradar-svg").appendChild(newpath);
-
-	}
-
-	buildCanvas(){
-		console.log('buildCanvas');
+	buildCanvas(){ // useless
 		/******************************************************************************/
 		// SOLUTION CANVAS
 		/******************************************************************************/
@@ -207,7 +174,7 @@ class TechRadar extends Component {
 		*/
 	}
 
-	buildSVG(){
+	buildSVG(){  // useless
 		for ( var techno in this.props){
 
 			let pointer = this.props[techno];

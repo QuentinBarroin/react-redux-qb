@@ -14,3 +14,7 @@ export function loadJSON(src, callback) {
     xobj.send(null);
 
 }
+
+export function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
